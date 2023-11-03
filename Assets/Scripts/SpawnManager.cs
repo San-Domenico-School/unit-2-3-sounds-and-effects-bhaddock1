@@ -10,10 +10,15 @@ public class SpawnManager : MonoBehaviour
     private float startDelay = 2;
     private float repeatRate = 2;
 
+    public bool gameOver { get; private set; }
+
     // Start is called before the first frame update
     private void Start()
     {
-        InvokeRepeating("SpawnObstacle", 2, 2);
+        
+            InvokeRepeating("SpawnObstacle", 2, 2);
+        
+        
     }
 
     // Update is called once per frame

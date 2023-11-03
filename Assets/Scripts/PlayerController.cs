@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = true;
         }
+        
     }
     // if grounded and jump input is pressed the character will be launched vertically equal to jump force
     private void OnJump(InputValue input)
