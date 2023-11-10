@@ -26,7 +26,7 @@ public class PlayerController : MonoBehaviour
     // initializes player rigidbody, sets ground to true and sets gravity
     private void Start()
     {
-
+        
         playerRB = GetComponent<Rigidbody>();
         isOnGround = true;
         Physics.gravity *= gravityModifier;
@@ -38,7 +38,10 @@ public class PlayerController : MonoBehaviour
         {
             isOnGround = true;
         }
-        
+        if(collision.gameObject.tag == "Obstacle")
+        {
+            gameOver = true;
+        }
     }
     // if grounded and jump input is pressed the character will be launched vertically equal to jump force
     private void OnJump(InputValue input)
