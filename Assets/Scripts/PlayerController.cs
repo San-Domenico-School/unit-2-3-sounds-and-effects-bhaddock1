@@ -26,7 +26,9 @@ public class PlayerController : MonoBehaviour
     // initializes player rigidbody, sets ground to true and sets gravity
     private void Start()
     {
-        
+        playerAudio = GetComponent<AudioSource>();
+        playerAnimation = GetComponent<Animator>();
+
         playerRB = GetComponent<Rigidbody>();
         isOnGround = true;
         Physics.gravity *= gravityModifier;
@@ -36,20 +38,30 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.name == "Ground")
         {
+            dirtParticle.Play();
             isOnGround = true;
         }
         if(collision.gameObject.tag == "Obstacle")
         {
+            playerAnimation.Play("Death");
             gameOver = true;
+            explosionParticle.Play();
+            dirtParticle.Stop();
+            playerAudio.PlayOneShot(crashSound, 1.0f);
         }
     }
     // if grounded and jump input is pressed the character will be launched vertically equal to jump force
     private void OnJump(InputValue input)
     {
-        if(isOnGround == true)
+        if(isOnGround && !gameOver)
         {
+            playerAudio.PlayOneShot(jumpSound, 1.0f);
+            dirtParticle.Stop();
+            isOnGround = false;
+            playerAnimation.SetTrigger("Jump_trig");
             playerRB.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+
     }
     private void OnTriggerEnter(Collider other)
     {
