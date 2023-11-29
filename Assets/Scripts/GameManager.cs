@@ -50,6 +50,19 @@ public class GameManager : MonoBehaviour
 
     }
 
+    private void EndGame()
+    {
 
+    }
+
+    public void SetTimed(bool timed)
+    {
+
+    }
+
+    public static void ChangeScore(int change)
+    {
+
+    }
 }
 

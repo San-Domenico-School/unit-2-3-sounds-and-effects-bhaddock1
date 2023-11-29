@@ -44,7 +44,7 @@ public class PlayerController : MonoBehaviour
         if(collision.gameObject.tag == "Obstacle")
         {
             playerAnimation.Play("Death");
-            gameOver = true;
+            GameManager.gameOver = true;
             explosionParticle.Play();
             dirtParticle.Stop();
             playerAudio.PlayOneShot(crashSound, 1.0f);
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour
     // if grounded and jump input is pressed the character will be launched vertically equal to jump force
     private void OnJump(InputValue input)
     {
-        if(isOnGround && !gameOver)
+        if(isOnGround && !GameManager.gameOver)
         {
             playerAudio.PlayOneShot(jumpSound, 1.0f);
             dirtParticle.Stop();

@@ -15,7 +15,7 @@ public class MoveLeft : MonoBehaviour
     {
         playerControllerScript = GameObject.Find("Player").GetComponent<PlayerController>();
 
-        if(!playerControllerScript.gameOver)
+        if(!GameManager.gameOver)
         {
             transform.Translate(Vector3.left * Time.deltaTime * speed);
         }
