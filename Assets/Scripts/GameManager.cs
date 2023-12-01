@@ -44,27 +44,43 @@ public class GameManager : MonoBehaviour
     }
     private void TimeCountdown()
     {
-
+        timeRemaining -= 1;
     }
 
     public void StartGame()
     {
+        audioSource.Play();
 
+        toggleGroup.SetActive(false);
+        startButton.SetActive(false);
+        if(timedGame)
+        {
+            timeRemainingText.gameObject.SetActive(true);
+            InvokeRepeating("TimeCountdown", 1 ,1);
+        }
+        gameOver = false;
+
+        spawnManager.SetActive(true);
+
+        playerAnimator.SetFloat("Speed_f", 1.0f);
+        playerAnimator.SetBool("BeginGame_b", true);
+        dirtSplatter.Play();
     }
 
     private void EndGame()
     {
-
+        gameOver = true;
+        player.animator.BeginGame_b 
     }
 
     public void SetTimed(bool timed)
     {
-
+        timed = timedGame;
     }
 
     public static void ChangeScore(int change)
     {
-
+        score += change;
     }
 }
 
