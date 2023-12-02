@@ -38,7 +38,10 @@ public class PlayerController : MonoBehaviour
     {
         if(collision.gameObject.name == "Ground")
         {
-            dirtParticle.Play();
+            if(!GameManager.gameOver)
+            {
+                dirtParticle.Play();
+            }
             isOnGround = true;
         }
         if(collision.gameObject.tag == "Obstacle")
