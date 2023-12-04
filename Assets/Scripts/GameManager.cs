@@ -23,7 +23,8 @@ public class GameManager : MonoBehaviour
     private AudioSource audioSource;
     private int timeRemaining = 60;
     private bool timedGame;
-    private bool timerDone;
+    
+    private float spawnDelay;
     // Start is called before the first frame update
     private void Start()
     {
@@ -42,11 +43,11 @@ public class GameManager : MonoBehaviour
     {
         scoreboardText.text = "Score:" + Mathf.RoundToInt(score).ToString();
 
-        if(timedGame)
+        if(timedGame && !gameOver)
         {
             if(timeRemaining > 0)
             {
-                Debug.Log("working");
+                
                 timeRemainingText.text = timeRemaining.ToString();
             }
            else
@@ -59,11 +60,11 @@ public class GameManager : MonoBehaviour
 
     private void TimeCountdown()
     {
-        
-        timeRemaining -= 1;
+
+        timeRemaining--;
         if(timeRemaining <= 0)
         {
-            timerDone = true;
+            CancelInvoke("TimeCountdown");
             
         }
     }
@@ -77,7 +78,7 @@ public class GameManager : MonoBehaviour
         if(timedGame)
         {
             timeRemainingText.gameObject.SetActive(true);
-            InvokeRepeating("TimeCountdown", 1 ,1);
+            InvokeRepeating("TimeCountdown", spawnDelay,1);
         }
         gameOver = false;
 
@@ -91,20 +92,21 @@ public class GameManager : MonoBehaviour
     private void EndGame()
     {
         
-        if(gameOver || timerDone)
+        if(gameOver || timeRemaining == 0)
         {
             gameOver = true;
             playerAnimator.SetBool("BeginGame_b", false);
             playerAnimator.SetFloat("Speed_f", 0f);
             audioSource.Stop();
             CancelInvoke();
+            timeRemainingText.text = "Game\nOver";
         }
         
     }
 
     public void SetTimed(bool timed)
     {
-        timed = timedGame;
+        timedGame = timed;
     }
 
     public static void ChangeScore(int change)
