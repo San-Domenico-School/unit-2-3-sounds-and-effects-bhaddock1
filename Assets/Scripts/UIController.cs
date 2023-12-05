@@ -13,6 +13,8 @@ public class UIController : MonoBehaviour
     private GameObject correctAnswerPopup;
     [SerializeField]
     private GameObject wrongAnswerPopup;
+    
+    public static bool right;
 
     public void SetupUIForQuestion(QuizQuestion question)
     {
@@ -39,6 +41,7 @@ public class UIController : MonoBehaviour
         if (isCorrect)
         {
             ShowCorrectAnswerPopup();
+            right = true;
         }
         else
         {

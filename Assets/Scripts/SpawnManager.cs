@@ -24,7 +24,7 @@ public class SpawnManager : MonoBehaviour
     // Update is called once per frame
     private void SpawnObstacle()
     {
-        if(!GameManager.gameOver)
+        if(!GameManager.gameOver && !GameManager.miniGame)
         {
             Instantiate(obstaclePrefab, spawnPos, obstaclePrefab.transform.rotation);
         }

@@ -15,16 +15,23 @@ public class GameManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI timeRemainingText;
     [SerializeField] GameObject toggleGroup;
     [SerializeField] GameObject startButton;
+    [SerializeField] GameObject kahootPanel;
     [SerializeField] GameObject spawnManager;
+    [SerializeField] GameObject runnerGame;
     [SerializeField] Animator playerAnimator;
     [SerializeField] ParticleSystem dirtSplatter;
     public static bool gameOver = true;
+    public static bool miniGame = false;
     private static float score;
     private AudioSource audioSource;
     private int timeRemaining = 60;
+    private int miniGameCooldown = 15;
     private bool timedGame;
+    private UIController uiControllerScript;
+    private QuizController quizControllerScript;
     
-    private float spawnDelay;
+    
+
     // Start is called before the first frame update
     private void Start()
     {
@@ -60,13 +67,20 @@ public class GameManager : MonoBehaviour
 
     private void TimeCountdown()
     {
-
+        miniGameCooldown--;
         timeRemaining--;
+        if(miniGameCooldown <= 0)
+        {
+           StartMiniGame();
+            CancelInvoke("TimeCountdown");
+        }
+
         if(timeRemaining <= 0)
         {
             CancelInvoke("TimeCountdown");
             
         }
+
     }
 
     public void StartGame()
@@ -78,7 +92,7 @@ public class GameManager : MonoBehaviour
         if(timedGame)
         {
             timeRemainingText.gameObject.SetActive(true);
-            InvokeRepeating("TimeCountdown", spawnDelay,1);
+            InvokeRepeating("TimeCountdown", 1,1);
         }
         gameOver = false;
 
@@ -112,6 +126,23 @@ public class GameManager : MonoBehaviour
     public static void ChangeScore(int change)
     {
         score += change;
+    }
+
+    private void StartMiniGame()
+    {
+        kahootPanel.SetActive(true);
+        runnerGame.SetActive(false); 
+        CancelInvoke();
+        miniGame = true;
+        
+        if(UIController.right)
+        {
+            runnerGame.SetActive(true);
+            kahootPanel.SetActive(false);
+            ChangeScore(5);
+            InvokeRepeating("TimeCountdown", 1,1);
+            miniGame = false;
+        }
     }
 }
 

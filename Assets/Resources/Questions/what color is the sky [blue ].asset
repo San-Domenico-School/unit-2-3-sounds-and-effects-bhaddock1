@@ -10,12 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9382a578f6597b3489a118c6df498777, type: 3}
-  m_Name: What color is the sky [blue]
+  m_Name: what color is the sky [blue ]
   m_EditorClassIdentifier: 
-  question: What color is the sky?
+  question: what color is the sky?
   answers:
-  - 'purple '
-  - rainbow
-  - blue
-  - yellow
-  correctAnswer: 2
+  - red
+  - 'blue '
+  - 'yellow '
+  - brown
+  correctAnswer: 1

@@ -70,7 +70,7 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.tag == "Scoreable")
         {
-            GameManager.ChangeScore(5);
+            GameManager.ChangeScore(1);
         }
 
     }

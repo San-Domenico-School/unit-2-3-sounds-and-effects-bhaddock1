@@ -7,8 +7,8 @@ public class QuizController : MonoBehaviour
     private QuizQuestion currentQuestion;
     private UIController uiController;
 
-    [SerializeField]
-    private float delayBetweenQuestions = 3f;
+    
+    public static float delayBetweenQuestions = 3f;
 
     private void Awake()
     {
@@ -38,6 +38,6 @@ public class QuizController : MonoBehaviour
     private IEnumerator ShowNextQuestionAfterDelay()
     {
         yield return new WaitForSeconds(delayBetweenQuestions);
-        PresentQuestion();
+        
     }
 }
